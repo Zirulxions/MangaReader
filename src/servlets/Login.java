@@ -41,11 +41,10 @@ public class Login extends HttpServlet {
 		}
 	}	
 	
-	@SuppressWarnings("unused")
 	private void validateLogin(Connection connection, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, NoSuchAlgorithmException, SQLException {
 		ObjectMapper objMapper = new ObjectMapper();
 		PropertiesReader prop = PropertiesReader.getInstance();
-		HttpSession newSession;
+		HttpSession session;
 		PreparedStatement stat = null;
 		String loginQuery = prop.getValue("query_logIn");
 		InnerClass innerClass = objMapper.readValue(request.getReader().lines().collect(Collectors.joining(System.lineSeparator())), InnerClass.class);
@@ -63,17 +62,21 @@ public class Login extends HttpServlet {
             	int type_id = result.getInt("type_id");
             	if(checkUserType(type_id)) {
             		System.out.println("You are an Admin");
-            		newSession = request.getSession();
+            		session = request.getSession();
+            		session.setAttribute("usr", user_username);
+            		session.setAttribute("tusr", "admin");
             		resp.setMessage("Login Successful");
                     resp.setStatus(200);
-                    resp.setRedirect("Logout.html");
+                    resp.setRedirect("UploadFile.html");
                     resp.setData(innerClass);
             	} else {
             		System.out.println("You are an User");
-            		newSession = request.getSession();
+            		session = request.getSession();
+            		session.setAttribute("usr", user_username);
+            		session.setAttribute("tusr", "user");
             		resp.setMessage("Login Successful");
                     resp.setStatus(404);
-                    resp.setRedirect("Logout.html");
+                    resp.setRedirect("UploadFile.html");
                     resp.setData(innerClass);
             	}
             } else {

@@ -1,6 +1,7 @@
 function $(id){
 		return document.getElementById(id);
-	}    
+	}
+
 function createAccount(){
 	var data = {
 			password: $('password').value,
@@ -41,3 +42,12 @@ function validate() {
 }
 
 document.getElementById("button3").addEventListener("click", createAccount);
+
+function SwitchURL(){
+	history.replaceState({},"Register", "Re.k8j2vdk.g.jkzvz84kl1.is.af7223.t.kjkkabofajs.er.Reggakbster.html");
+	document.getElementById("button3").disabled = true;
+}
+
+function forceLower(strInput) {
+	strInput.value=strInput.value.toLowerCase();
+}

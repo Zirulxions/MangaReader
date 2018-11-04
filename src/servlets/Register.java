@@ -1,5 +1,6 @@
 package servlets;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -43,6 +44,8 @@ public class Register extends HttpServlet {
 		String user_username = innerClass.getUsername();
 		String user_name = innerClass.getName();
 		String user_email = innerClass.getEmail();
+		//File newFolder = new File(prop.getValue("baseDir")+"/"+user_username);
+		File newFolder = new File("C:\\Users\\Javier Delgado\\Documents\\Workspace Eclipse\\MangaReader1.0\\WebContent\\mangaStorage\\"+user_username);
 		try {
         	PreparedStatement stat = null;
         	String signupQuery = prop.getValue("query_new");
@@ -61,6 +64,20 @@ public class Register extends HttpServlet {
         	String res = objMapper.writeValueAsString(resp);
         	System.out.println(objMapper.writerWithDefaultPrettyPrinter().writeValueAsString(resp));
         	response.getWriter().print(res);
+        	if (!newFolder.exists()) {
+        	    System.out.println("Directory: " + newFolder.getName());
+        	    boolean result = false;
+        	    try{
+        	        newFolder.mkdir();
+        	        result = true;
+        	    } 
+        	    catch(SecurityException se){
+        	        System.out.println("Error: " + se.getMessage());
+        	    }        
+        	    if(result) {    
+        	        System.out.println("Folder Created");  
+        	    }
+        	}
         } catch (SQLException e) {
         	System.out.println("Error: "+e.getMessage());
         }

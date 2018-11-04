@@ -22,3 +22,7 @@ function logIn(){
 		}
 
 $("button1").addEventListener("click", logIn);
+
+function SwitchURL(){
+	history.replaceState({},"Login", "L.hd92asjja.o.a2j11.g.12DA234w.i.efsddaSDAGA.n.andreita.html");
+}
