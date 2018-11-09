@@ -75,7 +75,9 @@ public class Register extends HttpServlet {
         	        System.out.println("Error: " + se.getMessage());
         	    }        
         	    if(result) {    
-        	        System.out.println("Folder Created");  
+        	        System.out.println("Folder Created!");  
+        	    } else {
+        	    	System.out.println("Folder Already Exists.");
         	    }
         	}
         } catch (SQLException e) {

@@ -2,24 +2,42 @@ function $(id){
 	return document.getElementById(id);
 }
 
-var xhr = new XMLHttpRequest();
-var File = "";
-function upload () {
-	var fData = new FormData();
-	fData.append("file", $("file").files[0]);
-	fData.append("mangaName", $("mangaName").value);
-	File = $("file").files[0].name;
-	//xhr.onreadystatechange = function () {
-	//	if (xhr.status === 200 && xhr.readyState === 4) {
-	//		$("uploadStatus").textContent = xhr.responseText + "\nFile uploaded";
-	//	}
-	//}
-	xhr.open("POST", "./FileManager", true);	
-	xhr.send(fData);
-}
+function upload(){
+	var formData = new FormData();
+	formData.append("file", document.getElementById("file").files[0]);
+	formData.append("mangaName", document.getElementById("mangaName").value);
+	formData.append("newChapter", document.getElementById("newChapter").value);
+	let config = {
+		method: 'POST',
+		body: formData,
+		header: {'Content-Type':'multipart/form-data'},
+	};
+	fetch("./FileManager", config)
+		.then(function(response){
+			return response.json();
+		})
+		.then(function(formData){
+			console.log(formData);
+		});
+	}
 
-function forceLower(strInput) {
-	strInput.value=strInput.value.toLowerCase();
+function mdelete(){
+	var fData = new FormData();
+	fData.append("mangaDelete", document.getElementById("mangaDelete").value);
+	fData.append("chapter", document.getElementById("chapter").value);
+	let config = {
+		method: 'POST',
+		body: fData,
+		header: {'Content-Type':'multipart/form-data'},
+	};
+	fetch("./DeleteFile", config)
+		.then(function(response){
+			return response.json();
+		})
+		.then(function(fData){
+			console.log(fData);
+		})
+	
 }
 
 function checkName(){

@@ -9,14 +9,21 @@
 <body onload="SwitchURL()">
 	<div>
 		<label id="name">Name User</label>
-		<button type="button" id="button2">Log Out</button><br><br>
+		<button type="button" id="button2">Log Out</button><br><br><br>
 	</div>
 	<div>
 		Insert Your File: <input id="file" type="file" name="file" accept=".jpg,.jpeg,.png" onchange="validateFileType()">
 		<label id="validateLabel"></label><br><br>
 		<input type="text" id="mangaName" name="mangaName" placeholder="Manga Name" onchange="checkName()" onkeyup="return forceLower(this);"><br>
+		<input type="text" id="newChapter" name="newChapter" placeholder="Manga Chapter" onkeyup="return forceLower(this);"><br>
 		<!-- <h3 id="uploadStatus"></h3> -->
-		<button id="button4" onclick="upload()">Upload</button>
+		<button id="button4" onclick="upload()">Upload</button><br><br><br>
+	</div>
+	<div>
+		<label>What manga you want to delete:</label>
+		<input type="text" id="mangaDelete" name="mangaDelete" placeholder="Manga Name" onkeyup="return forceLower(this);"><br>
+		<input type="text" id="chapter" name="chapter" placeholder="Manga Chapter" onkeyup="return forceLower(this);"><br>
+		<button id="button5" onclick="mdelete()">Delete</button>
 	</div>
 	<script type="text/javascript" src="Javascript/FileUpload.js"></script>
 	<script type="text/javascript" src="Javascript/Logout.js"></script>
