@@ -7,6 +7,7 @@ function upload(){
 	formData.append("file", document.getElementById("file").files[0]);
 	formData.append("mangaName", document.getElementById("mangaName").value);
 	formData.append("newChapter", document.getElementById("newChapter").value);
+	formData.append("mangaSynopsis", document.getElementById("synopsis").value);
 	let config = {
 		method: 'POST',
 		body: formData,
@@ -25,8 +26,9 @@ function mdelete(){
 	var fData = new FormData();
 	fData.append("mangaDelete", document.getElementById("mangaDelete").value);
 	fData.append("chapter", document.getElementById("chapter").value);
+	console.log(fData);
 	let config = {
-		method: 'POST',
+		method: 'DELETE',
 		body: fData,
 		header: {'Content-Type':'multipart/form-data'},
 	};

@@ -5,6 +5,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -17,6 +21,7 @@ import javax.servlet.http.Part;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import utility.DataBase;
 import utility.InnerClass;
 import utility.PropertiesReader;
 import utility.Response;
@@ -25,6 +30,8 @@ import utility.Response;
 @MultipartConfig
 public class FileManager extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private DataBase conn = new DataBase();
+	PropertiesReader prop = PropertiesReader.getInstance();
        
     public FileManager() {
         super();
@@ -32,7 +39,6 @@ public class FileManager extends HttpServlet {
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ObjectMapper objMapper = new ObjectMapper();
-		PropertiesReader prop = PropertiesReader.getInstance();
 		HttpSession session = request.getSession();
 		String mangaName = request.getParameter("mangaName");
 		String mangaChapter = request.getParameter("newChapter");
@@ -46,20 +52,27 @@ public class FileManager extends HttpServlet {
 			OutputStream output = null;
 			//Integer something = new File(direction + session.getAttribute("usr")).listFiles().length;
 			//Integer fileValue = (something + 1);
+    	    boolean dir1 = false, dir2 = false;
 			try {
+				File newManga = new File(direction + user_username + "/" + mangaName);
 				File newFolder = new File(direction + user_username + "/" + mangaName + "/" + mangaChapter + "/");
-				if (!newFolder.exists()) {
+				if (!newManga.exists()) {
 	        	    System.out.println("Directory: " + newFolder.getName());
-	        	    boolean result = false;
 	        	    try{
-	        	        newFolder.mkdir();
-	        	        result = true;
-	        	    } 
-	        	    catch(SecurityException se){
+	        	        newManga.mkdir();
+	        	        System.out.println("Manga Created.");
+	        	        dir1 = true;
+	        	        if(!newFolder.exists()) {
+		        	        try {
+		        	        	newFolder.mkdir();
+		        	        	System.out.println("Chapter Created");
+		        	        	dir2 = true;
+		        	        } catch(SecurityException se) {
+		        	        	System.out.println("Error Folder Chapter Exists: ");
+		        	        }
+	        	        }
+	        	    } catch(SecurityException se){
 	        	        System.out.println("Error Folder Exists but: " + se.getMessage());
-	        	    }        
-	        	    if(result) {    
-	        	        System.out.println("Folder Created");  
 	        	    }
 	        	}
 				output = new FileOutputStream(newFolder + "/" + this.getFileName(file));
@@ -68,6 +81,9 @@ public class FileManager extends HttpServlet {
 				while ((read = fileContent.read(bytes)) != -1) {
 					output.write(bytes, 0, read);
 				}
+				if ((dir1 == true) && (dir2 == true)) {
+					execInsertDB(conn.getConnection(), request, response);
+				}		
 				resp.setMessage("Operation Successful, Manga Uploaded");
 	        	resp.setStatus(200);
 	        	String res = objMapper.writeValueAsString(resp);
@@ -91,6 +107,28 @@ public class FileManager extends HttpServlet {
 		}
 	}
 	
+	private void execInsertDB(Connection connection, HttpServletRequest request, HttpServletResponse response) throws SQLException {
+		HttpSession session = request.getSession();
+		String user_username = (String) session.getAttribute("usr");
+		String manga_name = request.getParameter("mangaName");;
+		String manga_synop = request.getParameter("mangaSynopsis");
+		boolean manga_status = true;
+		PreparedStatement stat = null;
+		stat = connection.prepareStatement(prop.getValue("query_consultUser"));
+		stat.setString(1, user_username);
+		ResultSet result = stat.executeQuery();
+		Integer user_id = result.getInt("user_id");
+		stat = null;
+		stat = connection.prepareStatement(prop.getValue("query_insertManga"));
+		stat.setInt(1, user_id);
+		stat.setString(2, manga_name);
+		stat.setString(3, manga_synop);
+		stat.setBoolean(4, manga_status);
+		stat.setTimestamp(5, getCurrentTimeStamp());
+		stat.executeUpdate();
+		System.out.println("Added to Database.");
+	}
+
 	private String getFileName(Part part) {
 		for (String content : part.getHeader("content-disposition").split(";")) {
 			if (content.trim().startsWith("filename")) {
@@ -98,5 +136,10 @@ public class FileManager extends HttpServlet {
 			}
 		}
 		return null;
+	}
+	
+	private static java.sql.Timestamp getCurrentTimeStamp() {
+		java.util.Date today = new java.util.Date();
+		return new java.sql.Timestamp(today.getTime());
 	}
 }

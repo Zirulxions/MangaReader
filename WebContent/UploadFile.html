@@ -11,14 +11,34 @@
 		<label id="name">Name User</label>
 		<button type="button" id="button2">Log Out</button><br><br><br>
 	</div>
+
 	<div>
 		Insert Your File: <input id="file" type="file" name="file" accept=".jpg,.jpeg,.png" onchange="validateFileType()">
 		<label id="validateLabel"></label><br><br>
 		<input type="text" id="mangaName" name="mangaName" placeholder="Manga Name" onchange="checkName()" onkeyup="return forceLower(this);"><br>
 		<input type="text" id="newChapter" name="newChapter" placeholder="Manga Chapter" onkeyup="return forceLower(this);"><br>
+		<select>
+		 	<option value="1" selected>Kodomo</option>
+		 	<option value="2">Shonen</option>
+		 	<option value="3">Shojo</option>
+		 	<option value="4">Seinen</option>
+		 	<option value="5">Josei</option>
+		 	<option value="6">Maho Shojo</option>
+		 	<option value="7">Mecha</option>
+		 	<option value="8">Sentai</option>
+		 	<option value="9">Spokon</option>
+		 	<option value="10">Post-Apocaliptico</option>
+		 	<option value="11">Meitantei</option>
+		 	<option value="12">Ecchi</option>
+		 	<option value="13">Harem</option>
+		 	<option value="14">Hentai</option>
+		 	<option value="15">Other</option>
+		</select>
+		<textarea id="synopsis" placeholder="Insert the Manga Synopsis"></textarea>
 		<!-- <h3 id="uploadStatus"></h3> -->
 		<button id="button4" onclick="upload()">Upload</button><br><br><br>
 	</div>
+	<br><br><br><br>
 	<div>
 		<label>What manga you want to delete:</label>
 		<input type="text" id="mangaDelete" name="mangaDelete" placeholder="Manga Name" onkeyup="return forceLower(this);"><br>
