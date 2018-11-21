@@ -2,50 +2,148 @@
 <html>
 <head>
 	<link rel="icon" href="Resources/MangaReader.ico">
-	<meta charset="ISO-8859-1">
+	<meta charset="UTF-8">
 	<title>Upload New File</title>
 	<link rel="stylesheet" href="CSS/UploadFile.css">
+	<link rel="stylesheet" type="text/css" href="Materialize/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body onload="SwitchURL()">
-	<div>
-		<label id="name">Name User</label>
-		<button type="button" id="button2">Log Out</button><br><br><br>
-	</div>
+<body onload="SwitchURL()" style="background-image: url(Resources/F1.PNG);">
+	<nav class="teal darken-2 white-tex">
+    	<div class="nav-wrapper">
+      		<span id="name">Id. User</span>
+      		<ul id="nav-mobile" class="left">
+        		<li><a class="waves-effect waves-light btn" id="button2">Logout<i class="material-icons right">cloud</i></a></li>
+	    	</ul>
+    	</div>
+	</nav>
+	<div class="container">
+		<div class="col s12 m7">
+            <h2 class="header white-text">New Manga</h2>
+            <div class="card horizontal">
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="mangaName" type="text" class="validate">
+                                    <label for="mangaName" class="active">Manga Name (LowerCase)</label>
+                                </div>
+                            </div>
+                            <div class="row">
+	                            <div class="input-field col s12">		    
+								    <select id="mangaGender" style="display:inline;">
+									    <option value="" selected disabled>Choose Manga Gender</option>
+								      	<option value="1">Kodomo</option>
+									 	<option value="2">Shonen</option>
+									 	<option value="3">Shojo</option>
+									 	<option value="4">Seinen</option>
+									 	<option value="5">Josei</option>
+									 	<option value="6">Maho Shojo</option>
+									 	<option value="7">Mecha</option>
+									 	<option value="8">Sentai</option>
+									 	<option value="9">Spokon</option>
+									 	<option value="10">Post-Apocaliptico</option>
+									 	<option value="11">Meitantei</option>
+									 	<option value="12">Ecchi</option>
+									 	<option value="13">Harem</option>
+									 	<option value="14">Hentai</option>
+									 	<option value="15">Other</option>
+									</select>
+								</div>
+							</div>
+							<div class="row">
+						        <div class="input-field col s12">
+						          	<textarea id="synopsis" class="materialize-textarea"></textarea>
+						          	<label for="synopsis">Textarea</label>
+						        </div>
+						    </div>
+                        </form>
+                    </div>
+                    <div class="card-action">
+                        <button class="btn waves-effect waves-light col s7 push-s5" type="submit" name="action" id="button4">Create Manga
+                        <i class="material-icons right">send</i></button>
+                    </div>
+                </div>
+                <div class="card-image">
+                    <img src="">
+                </div>
+            </div>
+        </div>
+		<br><br><br><br>
 
-	<div>
-		Insert Your File: <input id="file" type="file" name="file" accept=".jpg,.jpeg,.png" onchange="validateFileType()">
-		<label id="validateLabel"></label><br><br>
-		<input type="text" id="mangaName" name="mangaName" placeholder="Manga Name" onchange="checkName()" onkeyup="return forceLower(this);"><br>
-		<input type="text" id="newChapter" name="newChapter" placeholder="Manga Chapter" onkeyup="return forceLower(this);"><br>
-		<select>
-		 	<option value="1" selected>Kodomo</option>
-		 	<option value="2">Shonen</option>
-		 	<option value="3">Shojo</option>
-		 	<option value="4">Seinen</option>
-		 	<option value="5">Josei</option>
-		 	<option value="6">Maho Shojo</option>
-		 	<option value="7">Mecha</option>
-		 	<option value="8">Sentai</option>
-		 	<option value="9">Spokon</option>
-		 	<option value="10">Post-Apocaliptico</option>
-		 	<option value="11">Meitantei</option>
-		 	<option value="12">Ecchi</option>
-		 	<option value="13">Harem</option>
-		 	<option value="14">Hentai</option>
-		 	<option value="15">Other</option>
-		</select>
-		<textarea id="synopsis" placeholder="Insert the Manga Synopsis"></textarea>
-		<!-- <h3 id="uploadStatus"></h3> -->
-		<button id="button4" onclick="upload()">Upload</button><br><br><br>
+		<h2 class="header white-text">Upload Chapter</h2>
+		<div class="card horizontal">
+        	<div class="card-stacked">
+            	<div class="card-content">
+					<div class="row">
+						<div class="file-field input-field">
+						     <div class="btn">
+						        <span>File</span>
+						        <input type="file" id="files" multiple>
+						    </div>
+						    <div class="file-path-wrapper">
+						    	<input class="file-path validate" type="text">
+						    </div>
+						</div>
+					</div>
+					<div class="row">
+	                    <div class="input-field col s12">
+	                        <input id="mName" type="text" class="validate">
+	                        <label for="mName" class="active">Manga Name</label>
+	                    </div>
+	                </div>
+					<div class="row">
+	                    <div class="input-field col s12">
+	                        <input id="chapterNumber" type="text" class="validate">
+	                        <label for="chapterNumber" class="active">Manga Chapter (In Number)</label>
+	                    </div>
+	                </div>
+	                <div class="row">
+	                    <div class="input-field col s12">
+	                        <input id="chapterTitle" type="text" class="validate">
+	                        <label for="chapterTitle" class="active">Chapter Title</label>
+	                    </div>
+	                </div>
+                    <div class="row">
+	                    <div class="input-field col s12">
+	                        <input id="chapterPages" type="text" class="validate">
+	                        <label for="chapterPages" class="active">Chapter Pages (In Number)</label>
+	                    </div>
+	                </div>
+	                <div class="card-action">
+                        <button class="btn waves-effect waves-light col s7 push-s5" type="submit" name="action" id="button6">Upload Chapter
+                        <i class="material-icons right">send</i></button>
+                    </div>
+				</div>
+			</div>
+		</div>
+		<br><br><br><br>
+		<div class="card horizontal">
+	        <div class="card-stacked">
+	            <div class="card-content">
+					<div class="row">
+				        <div class="input-field col s12">
+				            <input id="mangaDelete" type="text" class="validate" onchange="validate()" onkeyup="return forceLower(this);">
+				            <label for="mangaDelete" class="active">Name to Delete (LowerCase)</label>
+				        </div>
+				        <div class="input-field col s12">
+				            <input id="chapter" type="text" class="validate" onchange="validate()" onkeyup="return forceLower(this);">
+				            <label for="chapter" class="active">Manga Chapter to Delete (In Number)</label>
+				        </div>
+					</div>
+				</div>
+				<div class="card-action">
+				    <button class="btn waves-effect waves-light col s5 pull-s7" type="submit" name="action" id="button5">Delete
+	                <i class="material-icons right">send</i></button>		
+				</div>
+			</div>
+		</div>
 	</div>
-	<br><br><br><br>
-	<div>
-		<label>What manga you want to delete:</label>
-		<input type="text" id="mangaDelete" name="mangaDelete" placeholder="Manga Name" onkeyup="return forceLower(this);"><br>
-		<input type="text" id="chapter" name="chapter" placeholder="Manga Chapter" onkeyup="return forceLower(this);"><br>
-		<button id="button5" onclick="mdelete()">Delete</button>
-	</div>
-	<script type="text/javascript" src="Javascript/FileUpload.js"></script>
+	<script src="Materialize/js/jquery-3.3.1.min.js"></script>
+    <script src="Materialize/js/materialize.min.js"></script>
+	<script type="text/javascript" src="Javascript/Manager.js"></script>
 	<script type="text/javascript" src="Javascript/Logout.js"></script>
 </body>
 </html>
+ 

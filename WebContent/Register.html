@@ -2,23 +2,62 @@
 <html>
 <head>
 	<link rel="icon" href="Resources/MangaReader.ico">
-	<meta charset="ISO-8859-1">
+	<meta charset="UTF-8">
 	<title>Create New Account</title>
 	<link rel="stylesheet" href="CSS/Register.css">
+    <link rel="stylesheet" type="text/css" href="Materialize/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body onload="SwitchURL()">
-	<h1>Create New Account</h1>
-    <form>
-        <label>Password:</label>
-        <input type="password" name="password" id="password"/><br>
-        <label>Username:</label>
-        <input type="text" name="username" id="username"/><br>
-        <label>Name:</label>
-        <input type="text" name="name" id="name"/><br>
-        <label>Email:</label>
-        <input type="email" name="email" id="email" onchange="validate()" onkeyup="return forceLower(this);"/><label id="result"></label><br>
-        <button type="button" id="button3">Create Account</button>
-        <script type="text/javascript" src="Javascript/Register.js"></script>
-    </form>
+<body onload="SwitchURL()" style="background-image:url(Resources/F1.PNG)">
+    <div class="container">
+        <div class="col s12 m7">
+            <h2 class="header">Welcome - Create New User</h2>
+            <div class="card horizontal">
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="username" type="text" class="validate" onchange="validate()">
+                                    <label for="username" class="active">Username</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <input id="password" type="password" class="validate" onchange="validate()">
+                                    <label for="password" class="active">Password</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="name" type="text" class="validate" onchange="validate()">
+                                    <label for="name" class="active">Your Name</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="email" type="email" class="validate" onchange="validate()">
+                                    <label for="email">Email</label>
+                                    <span class="helper-text" data-error="Wrong Email" data-success="Valid Email">Email</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-action">
+                        <button class="btn waves-effect waves-light col s7 push-s5" type="submit" name="action" id="button3">Create Account
+                            <i class="material-icons right">send</i></button>
+                        <button class="btn waves-effect waves-light col s5 pull-s7" type="submit" name="action" onclick="location.href='Login.html';">¿Have an account?
+                            <i class="material-icons right">send</i></button>
+                    </div>
+                </div>
+                <!--
+                <div class="card-image">
+                    <img src="Materialize/images/BibliotecaHD2.jpg">
+                </div>
+                !-->
+            </div>
+        </div>
+    </div>
+    <script src="Materialize/js/jquery-3.3.1.min.js"></script>
+    <script src="Materialize/js/materialize.min.js"></script>
+    <script type="text/javascript" src="Javascript/Register.js"></script>
 </body>
 </html>

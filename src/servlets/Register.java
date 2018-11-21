@@ -60,10 +60,8 @@ public class Register extends HttpServlet {
         	System.out.println("Added to Database");
         	resp.setMessage("Operation Successful");
         	resp.setStatus(200);
+        	resp.setRedirect("Login.html");
         	resp.setData(innerClass);
-        	String res = objMapper.writeValueAsString(resp);
-        	System.out.println(objMapper.writerWithDefaultPrettyPrinter().writeValueAsString(resp));
-        	response.getWriter().print(res);
         	if (!newFolder.exists()) {
         	    System.out.println("Directory: " + newFolder.getName());
         	    boolean result = false;
@@ -80,6 +78,9 @@ public class Register extends HttpServlet {
         	    	System.out.println("Folder Already Exists.");
         	    }
         	}
+        	String res = objMapper.writeValueAsString(resp);
+        	System.out.println(objMapper.writerWithDefaultPrettyPrinter().writeValueAsString(resp));
+        	response.getWriter().print(res);
         } catch (SQLException e) {
         	System.out.println("Error: "+e.getMessage());
         }

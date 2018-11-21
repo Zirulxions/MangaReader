@@ -4,8 +4,8 @@ function $(id) {
 
 function logIn(){
        	let body = {
-           	username: $("username").value,
-      		password: $("password").value
+       		username: document.getElementById("username").value,
+      		password: document.getElementById("password").value
        	};
       	console.log(body)
        	fetch("./Login", {method: "POST", body:JSON.stringify(body)})
@@ -21,7 +21,7 @@ function logIn(){
            	});
 		}
 
-$("button1").addEventListener("click", logIn);
+$("Start").addEventListener("click", logIn);
 
 function SwitchURL(){
 	history.replaceState({},"Login", "L.hd92asjja.o.a2j11.g.12DA234w.i.efsddaSDAGA.n.andreita.html");

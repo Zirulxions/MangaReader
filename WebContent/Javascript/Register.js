@@ -20,6 +20,10 @@ function createAccount(){
 		})
 		.then(function(data){
 			console.log(data);
+			alert(data.message);
+			if(data.redirect != null && data.redirect != undefined){
+            	window.location.href = data.redirect;
+         	}
 		});
 	}
 
@@ -29,16 +33,20 @@ function validateEmail(email) {
 }
 
 function validate() {
-	var result = document.getElementById("result");
-	var email = document.getElementById("email").value;
-	if (validateEmail(email)) {
-		result.innerHTML = "Valid Email.";
-		document.getElementById("button3").disabled = false;
-	} else {
-	    result.innerHTML = "Invalid Email.";
-	    document.getElementById("button3").disabled = true;
-	}
-	return false;
+    var email = document.getElementById("email").value;
+    var username = document.getElementById("username").value;
+    var name = document.getElementById("name").value;
+    var password = document.getElementById("password").value;
+    if(email.trim() == "" || username.trim() == "" || name.trim() == "" || password.trim() == ""){
+        document.getElementById("button3").disabled = true;
+    } else {
+        if (validateEmail(email)) {
+            document.getElementById("button3").disabled = false;
+        } else {
+            document.getElementById("button3").disabled = true;
+        }
+        return false;
+    }
 }
 
 document.getElementById("button3").addEventListener("click", createAccount);
