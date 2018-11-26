@@ -3,7 +3,7 @@ package utility;
 public class InnerDeleteClass {
 	private String username;
 	private String mangaDelete;
-	private String chapter;
+	private Integer chapter;
 	
 	public String getUsername() {
 		return username;
@@ -13,7 +13,7 @@ public class InnerDeleteClass {
 		return mangaDelete;
 	}
 	
-	public String getChapter() {
+	public Integer getChapter() {
 		return chapter;
 	}
 	
