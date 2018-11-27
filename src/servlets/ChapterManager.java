@@ -5,11 +5,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
@@ -43,7 +49,26 @@ public class ChapterManager extends HttpServlet {
     public ChapterManager() {
         super();
     }
-
+    
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 	
+    	HttpSession session = request.getSession();
+    	String directionMangas = prop.getValue("baseDir") + (String) session.getAttribute("usr") + "/";
+    	String baseDel = prop.getValue("baseDel");
+    	String baseDirUniq = prop.getValue("baseDirUniq");
+    	List<String> listFolders = fileList(directionMangas);
+    	Integer randomManga = (int) ((Math.random() * ((listFolders.toArray().length - 1) + 1)) + 0);
+    	String Manga = (String) listFolders.toArray()[randomManga];
+    	String directionChapters = Manga + "/";
+    	List<String> listChapters = fileList(directionChapters);
+    	Integer randomChapter = (int) ((Math.random() * ((listChapters.toArray().length - 1) + 1)) + 0);
+    	String selected = (String) listChapters.toArray()[randomChapter];
+    	String fullyDirection = selected + "/";
+    	String opKey = "{";
+    	List<String> imageInside = fileList(fullyDirection);
+    	response.setContentType("application/json");
+    	response.getWriter().print(opKey + '\"' + "arr" + '\"' + ':' + '\"' + imageInside.toString().replace(baseDel, baseDirUniq).replace("\\","\\\\") + '\"' + '}');
+    }
+    
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		execInsertChapter(conn.getConnection(), request, response);
 	}
@@ -215,4 +240,31 @@ public class ChapterManager extends HttpServlet {
 		java.util.Date today = new java.util.Date();
 		return new java.sql.Timestamp(today.getTime());
 	}
+	
+	public List<String> fileList(String directory) {
+        List<String> fileNames = new ArrayList<>();
+        try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(Paths.get(directory))) {
+            for (Path path : directoryStream) {
+                fileNames.add(path.toString());
+            }
+        } catch (IOException ex) {
+        	System.out.println("Error: " + ex.getMessage());
+        }
+        return fileNames;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+/*
+for(Object img : imageInside.toArray()) {
+	System.out.println(img);
+}
+*/

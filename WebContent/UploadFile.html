@@ -8,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="Materialize/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body onload="SwitchURL()" 	style="background-image: url(Resources/F1.PNG); background-attachment: fixed; background-repeat: no-repeat;">
+<body onload="SwitchURL(); setImages();" style="background-image: url(Resources/F1.PNG); background-attachment: fixed; background-repeat: no-repeat;">
 	<nav class="teal darken-2 white-tex">
     	<div class="nav-wrapper">
       		<span id="name">Id. User</span>
@@ -140,6 +140,14 @@
 				</div>
 			</div>
 		</div>
+		<div class="col s12 m12 offset-m12 l6 offset-l3">
+        	<div class="card-panel teal darken-2 z-depth-1">
+          		<div class="row valign-wrapper">
+            		<div class="col s12 m12" id="fileView">
+            		</div>
+          		</div>
+        	</div>
+      	</div>
 	</div>
 	<script src="Materialize/js/jquery-3.3.1.min.js"></script>
     <script src="Materialize/js/materialize.min.js"></script>

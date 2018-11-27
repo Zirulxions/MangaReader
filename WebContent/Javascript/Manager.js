@@ -29,7 +29,7 @@ function upChapter(){
 	fData.append("chapterNumber", document.getElementById("chapterNumber").value);
 	fData.append("chapterTitle", document.getElementById("chapterTitle").value);
 	fData.append("chapterPages", document.getElementById("chapterPages").value);
-	for (var i = 0; i < files.length; i++) {
+	for (var i = 0; i < files.length - 1; i++) {
 		console.log("Added File");
 		var file = files[i];
 		fData.append("files[]", file, file.name);
@@ -52,7 +52,6 @@ function upChapter(){
 function optionDelete(){
 	var mangaToDelete = document.getElementById("mangaDelete").value;
 	var chapterToDelete = document.getElementById("chapter").value;
-	//alert(mangaToDelete + chapterToDelete);
 	if(mangaToDelete.trim() == ""){
 		alert("You need to write the manga name... !");
 	} else {
@@ -134,6 +133,40 @@ function validateFileType(){
     }   
 }
 
+function setImages(){
+	fetch("./ChapterManager", {method: "GET"})
+		.then(function(response){
+           	return response.json();
+        })
+        .then(function(data){
+        	var something = data.arr.substring(1,data.arr.length - 1).split(", ");
+        	console.log(something);
+        	for (var i = something.length - 1; i >= 0; i--) {
+        		var newItem = document.createElement("img");
+				newItem.setAttribute("class", "responsive-img");
+        		newItem.src = something[i];
+        		document.getElementById("fileView").appendChild(newItem);
+        		document.getElementById("fileView").appendChild(document.createElement("br"));
+        		document.getElementById("fileView").appendChild(document.createElement("br"));
+        	}
+        })
+
+}
+
 document.getElementById("button4").addEventListener("click", upload);
 document.getElementById("button5").addEventListener("click", optionDelete);
 document.getElementById("button6").addEventListener("click", upChapter);
+
+
+
+
+
+
+
+
+
+
+
+//return JSON.parse(JSON.stringify(response));
+//return JSON.parse("{" + response);
+//console.log(response.json());
